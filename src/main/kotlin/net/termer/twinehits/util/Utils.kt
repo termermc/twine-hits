@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.security.MessageDigest
+import java.util.*
 import javax.imageio.ImageIO
 
 /**
@@ -38,7 +39,7 @@ suspend fun hashString(str: String): String {
 		val md = MessageDigest.getInstance(config.ip_hash_algorithm)
 		val hashed = md.digest(bytes)
 
-		it.complete(String(hashed, Charsets.UTF_8))
+		it.complete(Base64.getEncoder().encodeToString(hashed))
 	}.await()
 }
 
